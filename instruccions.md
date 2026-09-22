@@ -35,4 +35,5 @@
 
 # Comandos utiles
   - Scaffold desde SQLite (genera entidades y contexto):
-    - `dotnet ef dbcontext scaffold "Data Source=C:\Users\richa\Desktop\Proyectos de Clase\WebAvanzada3Cuatrimestre\WebAvanzada3Cuatrimestre.Infrastructure\lavacar.db" Microsoft.EntityFrameworkCore.Sqlite --output-dir Entidades --context ApplicationDbContext --context-dir Data --force`
+    - `dotnet ef dbcontext scaffold "Data Source=C:\Users\richa\Desktop\Proyectos de Clase\WebAvanzada3Cuatrimestre\WebAvanzada3Cuatrimestre.Infrastructure\lavacar.db" Microsoft.EntityFrameworkCore.Sqlite --output-dir C:\Users\richa\Desktop\Proyectos de Clase\WebAvanzada3Cuatrimestre\WebAvanzada3Cuatrimestre.Domain\Entidades --context ApplicationDbContext --context-dir Data --force`
+    - `Set-Location 'C:\Users\richa\Desktop\Proyectos de Clase\WebAvanzada3Cuatrimestre\WebAvanzada3Cuatrimestre.Infrastructure'; dotnet ef dbcontext scaffold "Data Source=C:\Users\richa\Desktop\Proyectos de Clase\WebAvanzada3Cuatrimestre\WebAvanzada3Cuatrimestre.Infrastructure\lavacar.db" Microsoft.EntityFrameworkCore.Sqlite --output-dir "C:\Users\richa\Desktop\Proyectos de Clase\WebAvanzada3Cuatrimestre\WebAvanzada3Cuatrimestre.Domain\Entidades" --context ApplicationDbContext --context-dir Data --force`

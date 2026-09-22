@@ -13,4 +13,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WebAvanzada3Cuatrimestre.Infrastructure\WebAvanzada3Cuatrimestre.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

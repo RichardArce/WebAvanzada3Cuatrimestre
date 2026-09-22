@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using WebAvanzada3Cuatrimestre.Infrastructure.Data;
+using WebAvanzada3Cuatrimestre.Infrastructure.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,6 +16,11 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+builder.Services.AddScoped<ICarroRepository, CarroRepository>();
 
 app.UseHttpsRedirection();
 app.UseRouting();

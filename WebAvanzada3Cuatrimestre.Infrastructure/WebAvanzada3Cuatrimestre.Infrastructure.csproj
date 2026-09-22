@@ -19,4 +19,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WebAvanzada3Cuatrimestre.Domain\WebAvanzada3Cuatrimestre.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

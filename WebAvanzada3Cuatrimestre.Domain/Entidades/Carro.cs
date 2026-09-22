@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WebAvanzada3Cuatrimestre.Infrastructure.Entidades;
+namespace WebAvanzada3Cuatrimestre.Infrastructure;
 
 public partial class Carro
 {
