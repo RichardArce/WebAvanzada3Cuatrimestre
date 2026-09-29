@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WebAvanzada3Cuatrimestre.Application\WebAvanzada3Cuatrimestre.Application.csproj" />
     <ProjectReference Include="..\WebAvanzada3Cuatrimestre.Infrastructure\WebAvanzada3Cuatrimestre.Infrastructure.csproj" />
   </ItemGroup>
 

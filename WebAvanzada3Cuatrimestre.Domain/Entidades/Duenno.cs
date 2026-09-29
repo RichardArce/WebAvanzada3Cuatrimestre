@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WebAvanzada3Cuatrimestre.Infrastructure;
+namespace WebAvanzada3Cuatrimestre.Domain;
 
 public partial class Duenno
 {
@@ -18,4 +18,14 @@ public partial class Duenno
     public DateTime? FechaCreacion { get; set; }
 
     public virtual ICollection<Carro> Carros { get; set; } = new List<Carro>();
+
+
+    public bool ValidarReglaNegocioMayorEdad()
+    {
+        if (Edad > 18)
+        {
+            return true;
+        }
+        return false;
+    }
 }

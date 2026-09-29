@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using WebAvanzada3Cuatrimestre.Application.Services;
 using WebAvanzada3Cuatrimestre.Infrastructure.Data;
 using WebAvanzada3Cuatrimestre.Infrastructure.Repository;
 
@@ -11,6 +12,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<ICarroRepository, CarroRepository>();
+builder.Services.AddScoped<IDuennoRepository, DuennoRepository>();
+builder.Services.AddScoped<ICarroServicio, CarroServicio>();
 
 var app = builder.Build();
 

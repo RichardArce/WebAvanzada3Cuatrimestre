@@ -23,6 +23,7 @@
 - Infrastructure:
   - Contiene la implementación de la infraestructura, como bases de datos, servicios externos y otros componentes que interactúan con el mundo exterior.
   - Debe ser independiente de la lógica de negocio y de la presentación.
+  - Debe utilizar token de cancelación para mejorar el rendimiento y la escalabilidad de la aplicación.
 - Aplication:
   - Contiene la lógica de negocio y las reglas de la aplicación.
   - Debe ser independiente de la infraestructura y de la presentación.

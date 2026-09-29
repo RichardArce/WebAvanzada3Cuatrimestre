@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using WebAvanzada3Cuatrimestre.Infrastructure;
+using WebAvanzada3Cuatrimestre.Domain;
 
 namespace WebAvanzada3Cuatrimestre.Infrastructure.Data;
 
