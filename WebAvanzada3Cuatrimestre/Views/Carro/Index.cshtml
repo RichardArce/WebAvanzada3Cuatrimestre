@@ -1,0 +1,61 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/carro.css" asp-append-version="true" />
+
+<link rel="stylesheet" href="~/css/duenno.css" asp-append-version="true" />
+
+<div class="duenno-page">
+
+    <div class="page-header">
+        <div class="page-header-content">
+            <div>
+                <h1 class="page-title">
+                    <i class="bi bi-car-front-fill"></i> Carros
+                </h1>
+                <p class="page-subtitle">Gestión del inventario de vehículos</p>
+            </div>
+            <button type="button" class="btn btn-crear" data-bs-toggle="modal" data-bs-target="#modalCrearCarro">
+                <i class="bi bi-plus-lg"></i> Nuevo Carro
+            </button>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <div class="table-card-header">
+            <h2 class="table-card-title">
+                <i class="bi bi-list-ul"></i> Lista de Carros
+            </h2>
+        </div>
+        <div class="table-responsive">
+            <table id="tblCarro" class="table table-duenno" style="width:100%">
+                <thead>
+                    <tr>
+                        <th style="width:6%"><div class="th-content"><i class="bi bi-hash"></i> Id</div></th>
+                        <th><div class="th-content"><i class="bi bi-card-text"></i> Placa</div></th>
+                        <th><div class="th-content"><i class="bi bi-tag"></i> Marca</div></th>
+                        <th style="width:13%"><div class="th-content"><i class="bi bi-currency-dollar"></i> Valor Fiscal</div></th>
+                        <th style="width:9%"><div class="th-content"><i class="bi bi-exclamation-triangle"></i> Chocado</div></th>
+                        <th><div class="th-content"><i class="bi bi-person"></i> Dueño</div></th>
+                        <th style="width:14%"><div class="th-content"><i class="bi bi-gear"></i> Acciones</div></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    @await Html.PartialAsync("_Create", new WebAvanzada3Cuatrimestre.Application.Dtos.CarroDto())
+</div>
+
+@section Scripts {
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/carro.js" asp-append-version="true"></script>
+}
+
+
+

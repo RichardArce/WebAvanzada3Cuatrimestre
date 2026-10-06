@@ -7,9 +7,12 @@ using WebAvanzada3Cuatrimestre.Infrastructure.Repository;
 
 namespace WebAvanzada3Cuatrimestre.Application.Services
 {
+
+    //PRINCIPIO SOLID Inversion de dependencias
+    //Dependencia de abstracciones, no de implementaciones, por eso inyectamos la interfaz ICarroRepository y no la clase CarroRepository
     public class CarroServicio : ICarroServicio
     {
-
+        //Inyeccion de dependencias
         private readonly ICarroRepository _carroRepository;
         private readonly AutoMapper.IMapper _mapper;
 
@@ -43,7 +46,7 @@ namespace WebAvanzada3Cuatrimestre.Application.Services
         {
             var respuesta = new Respuesta<CarroDto>();
 
-
+            
             var carroEntity = _mapper.Map<Domain.Carro>(carro);
 
             // Validar la regla de negocio antes de crear el carro

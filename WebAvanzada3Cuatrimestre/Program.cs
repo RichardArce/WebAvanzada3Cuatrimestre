@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using WebAvanzada3Cuatrimestre.Application.Mapping;
 using WebAvanzada3Cuatrimestre.Application.Services;
 using WebAvanzada3Cuatrimestre.Infrastructure.Data;
 using WebAvanzada3Cuatrimestre.Infrastructure.Repository;
@@ -14,6 +15,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<ICarroRepository, CarroRepository>();
 builder.Services.AddScoped<IDuennoRepository, DuennoRepository>();
 builder.Services.AddScoped<ICarroServicio, CarroServicio>();
+builder.Services.AddScoped<IDuennoServicio, DuennoServicio>();
+
+//ADD MAPPER
+builder.Services.AddAutoMapper(cfg => { }, typeof(MapeoClases));
 
 var app = builder.Build();
 
@@ -38,3 +43,4 @@ app.MapControllerRoute(
 
 
 app.Run();
+

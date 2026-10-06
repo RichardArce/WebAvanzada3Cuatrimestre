@@ -5,6 +5,7 @@ using WebAvanzada3Cuatrimestre.Domain;
 
 namespace WebAvanzada3Cuatrimestre.Infrastructure.Repository;
 
+// PRincipio SOLID, I segregacion de interfaz por que tengo separados las interfaces de Carro, de Duenno, y sus servicio
 public interface IDuennoRepository
 {
     Task<List<Duenno>> GetAllDuennosAsync(CancellationToken cancellationToken = default);

@@ -1,0 +1,31 @@
+﻿@model WebAvanzada3Cuatrimestre.Application.Dtos.CarroDto
+
+<div class="modal fade" id="modalCrearCarro" tabindex="-1" aria-labelledby="modalCrearCarroLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="formCrearCarro" asp-controller="Carro" asp-action="CrearCarro" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCrearCarroLabel">Crear carro</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="mensajeCrearCarro" class="alert d-none" role="alert"></div>
+                    <div class="mb-3">
+                        <label asp-for="Placa" class="form-label">Placa</label>
+                        <input asp-for="Placa" class="form-control" required />
+                        <span asp-validation-for="Placa" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Marca" class="form-label">Marca</label>
+                        <input asp-for="Marca" class="form-control" required />
+                        <span asp-validation-for="Marca" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
