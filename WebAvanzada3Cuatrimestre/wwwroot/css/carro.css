@@ -1,13 +1,13 @@
 ﻿/* ---------- Variables ---------- */
 :root {
-    --duenno-primary: #4f46e5;
-    --duenno-primary-hover: #4338ca;
-    --duenno-bg: #f1f5f9;
+    --duenno-primary: #087e75;
+    --duenno-primary-hover: #075f59;
+    --duenno-bg: #f3f7f5;
     --duenno-card: #ffffff;
-    --duenno-border: #e2e8f0;
-    --duenno-text: #1e293b;
-    --duenno-text-muted: #64748b;
-    --duenno-radius: 12px;
+    --duenno-border: #dfe8e4;
+    --duenno-text: #203431;
+    --duenno-text-muted: #70817b;
+    --duenno-radius: 7px;
     --duenno-shadow: 0 1px 3px rgba(0, 0, 0, .06), 0 1px 2px rgba(0, 0, 0, .04);
     --duenno-shadow-md: 0 4px 6px rgba(0, 0, 0, .05), 0 2px 4px rgba(0, 0, 0, .04);
 }
@@ -23,7 +23,8 @@
 
 /* ---------- Page header ---------- */
 .page-header {
-    background: linear-gradient(135deg, var(--duenno-primary) 0%, #7c3aed 100%);
+    background: #183b36;
+    border-left: 5px solid #e36b47;
     border-radius: var(--duenno-radius);
     padding: 2rem 2.5rem;
     margin-bottom: 1.5rem;
@@ -186,7 +187,9 @@
 /* ---------- Table ---------- */
 .table-duenno {
     margin: 0;
-    font-size: .92rem;
+    font-size: .9rem;
+    border-collapse: separate;
+    border-spacing: 0;
 }
 
     .table-duenno thead {
@@ -194,12 +197,12 @@
     }
 
         .table-duenno thead th {
-            border-bottom: 2px solid var(--duenno-border);
+            border-bottom: 1px solid var(--duenno-border);
             padding: .85rem 1rem;
             font-weight: 600;
             font-size: .8rem;
             text-transform: uppercase;
-            letter-spacing: .04em;
+            letter-spacing: 0;
             color: var(--duenno-text-muted);
             white-space: nowrap;
         }
@@ -215,13 +218,17 @@
 }
 
     .table-duenno tbody tr:hover {
-        background: #f1f5ff;
+        background: #f0f7f4;
     }
 
 .table-duenno tbody td {
     padding: .8rem 1rem;
     vertical-align: middle;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid #edf2ef;
+}
+
+.table-duenno tbody tr:last-child td {
+    border-bottom: 0;
 }
 
 /* ---------- Action buttons (usá estas clases en tu JS) ---------- */
@@ -294,30 +301,144 @@
         font-size: .9rem;
     }
 
-/* ---------- DataTables overrides ---------- */
-.dataTables_wrapper .dataTables_length,
-.dataTables_wrapper .dataTables_filter,
-.dataTables_wrapper .dataTables_info,
-.dataTables_wrapper .dataTables_paginate {
-    padding: .75rem 1.25rem;
+/* ---------- DataTables controls ---------- */
+.dt-container {
+    width: 100%;
+    color: var(--duenno-text);
     font-size: .88rem;
 }
 
-.dataTables_wrapper .dataTables_filter {
-    display: none; /* usamos nuestro propio buscador */
+.dt-container > .dt-layout-row:first-child {
+    padding: .9rem 1.25rem;
+    background: #fff;
+    border-bottom: 1px solid var(--duenno-border);
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button {
-    border-radius: 6px !important;
-    margin: 0 2px;
+.dt-container > .dt-layout-row:last-child {
+    padding: .75rem 1.25rem;
+    background: #fff;
+    border-top: 1px solid var(--duenno-border);
 }
 
-    .dataTables_wrapper .dataTables_paginate .paginate_button.current,
-    .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-        background: var(--duenno-primary) !important;
-        border-color: var(--duenno-primary) !important;
-        color: #fff !important;
+.dt-container .dt-layout-row {
+    align-items: center;
+    margin: 0;
+}
+
+.dt-container .dt-layout-cell {
+    min-width: 0;
+}
+
+.dt-container .dt-length label,
+.dt-container .dt-search label {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin: 0;
+    color: var(--duenno-text-muted);
+    white-space: nowrap;
+}
+
+.dt-container select.dt-input,
+.dt-container input.dt-input {
+    min-height: 36px;
+    padding: .35rem .65rem;
+    color: var(--duenno-text);
+    background-color: #fff;
+    border: 1px solid var(--duenno-border);
+    border-radius: 6px;
+    font: inherit;
+}
+
+.dt-container select.dt-input:focus,
+.dt-container input.dt-input:focus {
+    border-color: var(--duenno-primary);
+    outline: 0;
+    box-shadow: 0 0 0 3px rgba(8, 126, 117, .12);
+}
+
+.dt-container .dt-search input.dt-input {
+    width: 210px;
+    margin-left: .15rem;
+}
+
+.dt-container .dt-info {
+    padding-top: 0;
+    color: var(--duenno-text-muted);
+}
+
+.dt-container .dt-paging {
+    display: flex;
+    align-items: center;
+    gap: .2rem;
+}
+
+.dt-container .dt-paging .dt-paging-button {
+    display: inline-flex;
+    min-width: 34px;
+    height: 34px;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: .35rem .6rem;
+    color: var(--duenno-text);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    box-shadow: none;
+}
+
+.dt-container .dt-paging .dt-paging-button:hover {
+    color: var(--duenno-primary-hover) !important;
+    background: #e8f4f0 !important;
+    border-color: #d3e8df !important;
+}
+
+.dt-container .dt-paging .dt-paging-button.current,
+.dt-container .dt-paging .dt-paging-button.current:hover {
+    color: #fff !important;
+    background: var(--duenno-primary) !important;
+    border-color: var(--duenno-primary) !important;
+}
+
+.dt-container .dt-paging .dt-paging-button.disabled,
+.dt-container .dt-paging .dt-paging-button.disabled:hover {
+    color: #a4b0ab !important;
+    background: transparent !important;
+    border-color: transparent !important;
+    cursor: default;
+}
+
+.table-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+}
+
+.dt-actions-cell {
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .dt-container > .dt-layout-row:first-child,
+    .dt-container > .dt-layout-row:last-child {
+        padding: .75rem;
     }
+
+    .dt-container > .dt-layout-row:not(.dt-layout-table) {
+        flex-wrap: wrap;
+        gap: .65rem;
+    }
+
+    .dt-container .dt-search {
+        text-align: left;
+    }
+
+    .dt-container .dt-search input.dt-input {
+        width: min(210px, 55vw);
+    }
+}
 
 /* ---------- Responsive ---------- */
 @media (max-width: 768px) {
@@ -345,5 +466,191 @@
 
     .stats-row {
         grid-template-columns: 1fr;
+    }
+}
+
+/* ---------- Vehicle form modals ---------- */
+.vehicle-modal-dialog {
+    max-width: 540px;
+}
+
+.vehicle-modal {
+    overflow: hidden;
+    border: 1px solid rgba(32, 52, 49, .08);
+    border-radius: 10px;
+    box-shadow: 0 24px 70px rgba(16, 42, 37, .2);
+}
+
+.vehicle-modal-header {
+    align-items: flex-start;
+    padding: 1.5rem 1.6rem;
+    background: #fff;
+    border-bottom: 1px solid var(--duenno-border);
+}
+
+.vehicle-modal-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding-right: .5rem;
+}
+
+.vehicle-modal-icon {
+    display: grid;
+    width: 46px;
+    height: 46px;
+    flex: 0 0 46px;
+    place-items: center;
+    color: var(--duenno-primary);
+    background: #e8f4f0;
+    border-radius: 7px;
+    font-size: 1.2rem;
+}
+
+.vehicle-modal-eyebrow {
+    display: block;
+    margin: 0 0 .25rem;
+    color: var(--duenno-primary);
+    font-size: .7rem;
+    font-weight: 750;
+}
+
+.vehicle-modal .modal-title {
+    color: var(--duenno-text);
+    font-size: 1.25rem;
+    font-weight: 750;
+}
+
+.vehicle-modal-subtitle {
+    margin: .25rem 0 0;
+    color: var(--duenno-text-muted);
+    font-size: .88rem;
+    line-height: 1.45;
+}
+
+.vehicle-modal-body {
+    padding: 1.5rem 1.6rem 1.25rem;
+    background: #fff;
+}
+
+.vehicle-field .form-label {
+    margin-bottom: .45rem;
+    color: var(--duenno-text);
+    font-size: .88rem;
+    font-weight: 650;
+}
+
+.vehicle-control {
+    position: relative;
+}
+
+.vehicle-control > i {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: .9rem;
+    color: #80928c;
+    pointer-events: none;
+    transform: translateY(-50%);
+    transition: color .16s ease;
+}
+
+.vehicle-control:focus-within > i {
+    color: var(--duenno-primary);
+}
+
+.vehicle-control .form-control,
+.vehicle-control .form-select {
+    min-height: 46px;
+    padding-left: 2.65rem;
+    color: var(--duenno-text);
+    background-color: #fff;
+    border: 1px solid var(--duenno-border);
+    border-radius: 6px;
+    font-size: .94rem;
+    transition: border-color .16s ease, box-shadow .16s ease;
+}
+
+.vehicle-control .form-control::placeholder {
+    color: #9aa9a4;
+}
+
+.vehicle-control .form-control:focus,
+.vehicle-control .form-select:focus {
+    border-color: var(--duenno-primary);
+    box-shadow: 0 0 0 3px rgba(8, 126, 117, .12);
+}
+
+.vehicle-field .text-danger:not(:empty) {
+    display: block;
+    margin-top: .35rem;
+    font-size: .8rem;
+}
+
+.vehicle-modal .alert {
+    margin-bottom: 1.25rem;
+    border-radius: 6px;
+}
+
+.vehicle-modal-footer {
+    gap: .65rem;
+    padding: 1rem 1.6rem 1.4rem;
+    background: #fff;
+    border-top: 0;
+}
+
+.vehicle-modal-footer .btn {
+    min-height: 42px;
+    padding: .55rem 1rem;
+    border-radius: 6px;
+    font-size: .9rem;
+    font-weight: 650;
+    transition: color .16s ease, background-color .16s ease, border-color .16s ease, transform .16s ease;
+}
+
+.btn-modal-cancel {
+    color: #526560;
+    background: #fff;
+    border: 1px solid var(--duenno-border);
+}
+
+.btn-modal-cancel:hover {
+    color: var(--duenno-text);
+    background: #f3f7f5;
+    border-color: #c5d4ce;
+}
+
+.btn-modal-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .45rem;
+    color: #fff;
+    background: var(--duenno-primary);
+    border: 1px solid var(--duenno-primary);
+}
+
+.btn-modal-primary:hover {
+    color: #fff;
+    background: var(--duenno-primary-hover);
+    border-color: var(--duenno-primary-hover);
+    transform: translateY(-1px);
+}
+
+@media (max-width: 575.98px) {
+    .vehicle-modal-dialog {
+        margin: .75rem;
+    }
+
+    .vehicle-modal-header {
+        padding: 1.2rem;
+    }
+
+    .vehicle-modal-body {
+        padding: 1.2rem 1.2rem .8rem;
+    }
+
+    .vehicle-modal-footer {
+        padding: .7rem 1.2rem 1.2rem;
     }
 }

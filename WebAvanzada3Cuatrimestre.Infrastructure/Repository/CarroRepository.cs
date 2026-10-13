@@ -34,7 +34,10 @@ namespace WebAvanzada3Cuatrimestre.Infrastructure.Repository
 
             //Es correcto validar el id antes de hacer la consulta?  Debemos evitar doble validacion
 
-            var carro = await _context.Carros.FindAsync(id, cancellationToken);
+            var carro = await _context.Carros
+                .AsNoTracking()
+                .Include(c => c.FkduennoNavigation)
+                .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
 
             if (carro == null)
             {

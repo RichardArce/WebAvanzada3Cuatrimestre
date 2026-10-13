@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/css/carro.css" asp-append-version="true" />
 
-<link rel="stylesheet" href="~/css/duenno.css" asp-append-version="true" />
 
 <div class="duenno-page">
 
@@ -38,9 +37,7 @@
                         <th style="width:6%"><div class="th-content"><i class="bi bi-hash"></i> Id</div></th>
                         <th><div class="th-content"><i class="bi bi-card-text"></i> Placa</div></th>
                         <th><div class="th-content"><i class="bi bi-tag"></i> Marca</div></th>
-                        <th style="width:13%"><div class="th-content"><i class="bi bi-currency-dollar"></i> Valor Fiscal</div></th>
-                        <th style="width:9%"><div class="th-content"><i class="bi bi-exclamation-triangle"></i> Chocado</div></th>
-                        <th><div class="th-content"><i class="bi bi-person"></i> Dueño</div></th>
+                        <th><div class="th-content"><i class="bi bi-tag"></i> Dueño</div></th>
                         <th style="width:14%"><div class="th-content"><i class="bi bi-gear"></i> Acciones</div></th>
                     </tr>
                 </thead>
@@ -50,6 +47,7 @@
     </div>
 
     @await Html.PartialAsync("_Create", new WebAvanzada3Cuatrimestre.Application.Dtos.CarroDto())
+    @await Html.PartialAsync("_Edit", new WebAvanzada3Cuatrimestre.Application.Dtos.CarroDto())
 </div>
 
 @section Scripts {

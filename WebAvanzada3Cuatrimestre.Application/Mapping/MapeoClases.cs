@@ -13,7 +13,15 @@ namespace WebAvanzada3Cuatrimestre.Application.Mapping
         public MapeoClases()
         {
             CreateMap<Duenno, Dtos.DuennoDto>().ReverseMap();
-            CreateMap<Carro, Dtos.CarroDto>().ReverseMap();
+
+
+            CreateMap<Carro, Dtos.CarroDto>()
+                .ForMember(destino => destino.Duenno,
+                    opciones => opciones.MapFrom(origen => origen.FkduennoNavigation));
+
+            CreateMap<Dtos.CarroDto, Carro>()
+                .ForMember(destino => destino.FkduennoNavigation,
+                    opciones => opciones.Ignore());
 
 
 

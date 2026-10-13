@@ -9,16 +9,26 @@ namespace WebAvanzada3Cuatrimestre.Controllers
     public class CarroController : Controller
     {
         private readonly ICarroServicio _carroServicio;
+        private readonly IDuennoServicio _duennoServicio;
 
-        public CarroController(ICarroServicio carroServicio) // Inyección de dependencias, es decir que el controlador depende del servicio de carro para funcionar
+        //n servicios
+
+        //Si tenemos muchos servicios ponemos usar un mas personalizado y hacer la carga en infraestructura
+
+        // Cuando hayan muchas cosas repetidas es muy problable que se necesita extraer hacia un servicio, una funcion, un procedimiento que realice esa tarea, para no repetir codigo y tener un codigo mas limpio y mantenible
+
+
+        public CarroController(ICarroServicio carroServicio, IDuennoServicio duennoServicio) // Inyección de dependencias, es decir que el controlador depende del servicio de carro para funcionar
         {
             _carroServicio = carroServicio;
+            _duennoServicio = duennoServicio;
         }
 
         public async Task<IActionResult> Index()
         {
-            var carros = await _carroServicio.ObtenerCarrosAsync();
-            return View(carros);
+            var duenno = await _duennoServicio.ObtenerDuennosAsync(); // Ejemplo de cómo obtener un dueño por su ID
+            ViewBag.Duennos = duenno; // Pasamos la lista de duennos a la vista para que se pueda mostrar en un select
+            return View();
         }
         public async Task<IActionResult> ObtenerCarros() // Este metodo es para obtener los carros en formato json, es decir que no retorna una vista sino un json
         {

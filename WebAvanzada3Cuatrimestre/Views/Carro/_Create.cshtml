@@ -1,29 +1,59 @@
 ﻿@model WebAvanzada3Cuatrimestre.Application.Dtos.CarroDto
 
 <div class="modal fade" id="modalCrearCarro" tabindex="-1" aria-labelledby="modalCrearCarroLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
+    <div class="modal-dialog modal-dialog-centered vehicle-modal-dialog">
+        <div class="modal-content vehicle-modal">
             <form id="formCrearCarro" asp-controller="Carro" asp-action="CrearCarro" method="post">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalCrearCarroLabel">Crear carro</h5>
+                <div class="modal-header vehicle-modal-header">
+                    <div class="vehicle-modal-heading">
+                        <span class="vehicle-modal-icon"><i class="bi bi-plus-lg"></i></span>
+                        <div>
+                            <span class="vehicle-modal-eyebrow">NUEVO REGISTRO</span>
+                            <h5 class="modal-title" id="modalCrearCarroLabel">Agregar vehículo</h5>
+                            <p class="vehicle-modal-subtitle">Ingresa los datos para incluirlo en el inventario.</p>
+                        </div>
+                    </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body vehicle-modal-body">
                     <div id="mensajeCrearCarro" class="alert d-none" role="alert"></div>
-                    <div class="mb-3">
+                    <div class="vehicle-field mb-3">
                         <label asp-for="Placa" class="form-label">Placa</label>
-                        <input asp-for="Placa" class="form-control" required />
+                        <div class="vehicle-control">
+                            <i class="bi bi-card-text" aria-hidden="true"></i>
+                            <input asp-for="Placa" class="form-control" placeholder="Ej. ABC-123" autocomplete="off" required />
+                        </div>
                         <span asp-validation-for="Placa" class="text-danger"></span>
                     </div>
-                    <div class="mb-3">
+                    <div class="vehicle-field mb-3">
                         <label asp-for="Marca" class="form-label">Marca</label>
-                        <input asp-for="Marca" class="form-control" required />
+                        <div class="vehicle-control">
+                            <i class="bi bi-car-front" aria-hidden="true"></i>
+                            <input asp-for="Marca" class="form-control" placeholder="Ej. Toyota" required />
+                        </div>
                         <span asp-validation-for="Marca" class="text-danger"></span>
                     </div>
+                    <div class="vehicle-field mb-3">
+                        <label asp-for="Fkduenno" class="form-label">Dueño</label>
+                        <div class="vehicle-control">
+                            <i class="bi bi-person" aria-hidden="true"></i>
+                            <select asp-for="Fkduenno" class="form-select" required>
+                            <option value="">Seleccione un dueño</option>
+                            @if (ViewBag.Duennos != null)
+                            {
+                                @foreach (var duenno in ViewBag.Duennos) //ViewBag, ViewData
+                                {
+                                    <option value="@duenno.Id">@duenno.Nombre @duenno.Apellido1 @duenno.Apellido2</option>
+                                }
+                            }
+                            </select>
+                        </div>
+                        <span asp-validation-for="Fkduenno" class="text-danger"></span>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                <div class="modal-footer vehicle-modal-footer">
+                    <button type="button" class="btn btn-modal-cancel" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-modal-primary" id="btnGuardarCarro"><i class="bi bi-check2"></i> Guardar vehículo</button>
                 </div>
             </form>
         </div>

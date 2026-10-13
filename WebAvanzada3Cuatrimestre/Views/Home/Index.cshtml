@@ -1,8 +1,26 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="home-page">
+    <div class="home-heading">
+        <span class="eyebrow"><i class="bi bi-speedometer2"></i> PANEL DE CONTROL</span>
+        <h1>Tu flota,<br /><span>bajo control.</span></h1>
+        <p>Administra la información de tus vehículos desde un solo lugar.</p>
+    </div>
+
+    <a class="home-feature" asp-controller="Carro" asp-action="Index">
+        <div class="home-feature-icon"><i class="bi bi-car-front-fill"></i></div>
+        <div class="home-feature-copy">
+            <span class="home-feature-label">INVENTARIO</span>
+            <h2>Gestión de carros</h2>
+            <p>Consulta, registra y mantén al día los datos de cada vehículo.</p>
+        </div>
+        <span class="home-feature-link">Ver carros <i class="bi bi-arrow-up-right"></i></span>
+    </a>
+
+    <div class="home-note">
+        <span class="home-note-mark"><i class="bi bi-check2"></i></span>
+        <p><strong>Todo en orden.</strong> Accede al inventario para comenzar a gestionar tus vehículos.</p>
+    </div>
+</section>
