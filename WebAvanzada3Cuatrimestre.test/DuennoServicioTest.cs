@@ -53,7 +53,7 @@ namespace WebAvanzada3Cuatrimestre.test
             };
 
             mapper.Setup(m => m.Map<Duenno>(dto)).Returns(entity);
-            repositorioMock.Setup(r => r.CreateDuennoAsync(entity, It.IsAny<CancellationToken>())).ReturnsAsync(true);
+            repositorioMock.Setup(r => r.CreateAsync(entity, It.IsAny<CancellationToken>())).ReturnsAsync(true);
             //Puede que falte savechanges
 
 
@@ -76,7 +76,7 @@ namespace WebAvanzada3Cuatrimestre.test
                 new() { Id = 1, Nombre = "Juan", Apellido1 = "Perez", Apellido2 = "Mora", Edad = 25 },
                 new() { Id = 2, Nombre = "Ana", Apellido1 = "Rojas", Apellido2 = "Solis", Edad = 40 }
             };
-            _repositorioMock.Setup(r => r.GetAllDuennosAsync(It.IsAny<CancellationToken>())).ReturnsAsync(duennos);
+            _repositorioMock.Setup(r => r.GetAllAsync(It.IsAny<CancellationToken>())).ReturnsAsync(duennos);
 
             // Act
             var resultado = await _servicio.ObtenerDuennosAsync();
@@ -92,7 +92,7 @@ namespace WebAvanzada3Cuatrimestre.test
         public async Task ObtenerDuennos_SinRegistros_RetornaListaVacia()
         {
             // Arrange
-            _repositorioMock.Setup(r => r.GetAllDuennosAsync(It.IsAny<CancellationToken>())).ReturnsAsync(new List<Duenno>());
+            _repositorioMock.Setup(r => r.GetAllAsync(It.IsAny<CancellationToken>())).ReturnsAsync(new List<Duenno>());
 
             // Act
             var resultado = await _servicio.ObtenerDuennosAsync();
@@ -108,7 +108,7 @@ namespace WebAvanzada3Cuatrimestre.test
         {
             // Arrange
             var duenno = new Duenno { Id = 7, Nombre = "Ana", Apellido1 = "Rojas", Apellido2 = "Solis", Edad = 40 };
-            _repositorioMock.Setup(r => r.GetDuennoByIdAsync(7, It.IsAny<CancellationToken>())).ReturnsAsync(duenno);
+            _repositorioMock.Setup(r => r.GetByIdAsync(7, It.IsAny<CancellationToken>())).ReturnsAsync(duenno);
 
             // Act
             var resultado = await _servicio.ObtenerDuennoPorIdAsync(7);
@@ -123,7 +123,7 @@ namespace WebAvanzada3Cuatrimestre.test
         public async Task ObtenerDuennoPorId_NoExiste_RetornaNull()
         {
             // Arrange
-            _repositorioMock.Setup(r => r.GetDuennoByIdAsync(99, It.IsAny<CancellationToken>())).ReturnsAsync((Duenno?)null);
+            _repositorioMock.Setup(r => r.GetByIdAsync(99, It.IsAny<CancellationToken>())).ReturnsAsync((Duenno?)null);
 
             // Act
             var resultado = await _servicio.ObtenerDuennoPorIdAsync(99);
@@ -138,7 +138,7 @@ namespace WebAvanzada3Cuatrimestre.test
         public async Task CrearDuenno_DatosValidos_LlamaRepositorioYRetornaDato()
         {
             // Arrange
-            _repositorioMock.Setup(r => r.CreateDuennoAsync(It.IsAny<Duenno>(), It.IsAny<CancellationToken>())).ReturnsAsync(true);
+            _repositorioMock.Setup(r => r.CreateAsync(It.IsAny<Duenno>(), It.IsAny<CancellationToken>())).ReturnsAsync(true);
 
             // Act
             var resultado = await _servicio.CrearDuennoAsync(CrearDuennoDto());
@@ -147,7 +147,7 @@ namespace WebAvanzada3Cuatrimestre.test
             Assert.True(resultado.EsCorrecto);
             Assert.Equal(200, resultado.Codigo);
             Assert.Equal("Juan", resultado.Dato.Nombre);
-            _repositorioMock.Verify(r => r.CreateDuennoAsync(
+            _repositorioMock.Verify(r => r.CreateAsync(
                 It.Is<Duenno>(d => d.Nombre == "Juan" && d.Apellido1 == "Perez" && d.Edad == 25),
                 It.IsAny<CancellationToken>()), Times.Once);
         }
@@ -164,14 +164,14 @@ namespace WebAvanzada3Cuatrimestre.test
             Assert.False(resultado.EsCorrecto);
             Assert.Equal(400, resultado.Codigo);
             Assert.Equal("El dueño debe ser mayor de 18 años.", resultado.Mensaje);
-            _repositorioMock.Verify(r => r.CreateDuennoAsync(It.IsAny<Duenno>(), It.IsAny<CancellationToken>()), Times.Never);
+            _repositorioMock.Verify(r => r.CreateAsync(It.IsAny<Duenno>(), It.IsAny<CancellationToken>()), Times.Never);
         }
 
         [Fact]
         public async Task CrearDuenno_RepositorioFalla_RetornaError500()
         {
             // Arrange
-            _repositorioMock.Setup(r => r.CreateDuennoAsync(It.IsAny<Duenno>(), It.IsAny<CancellationToken>())).ReturnsAsync(false);
+            _repositorioMock.Setup(r => r.CreateAsync(It.IsAny<Duenno>(), It.IsAny<CancellationToken>())).ReturnsAsync(false);
 
             // Act
             var resultado = await _servicio.CrearDuennoAsync(CrearDuennoDto());
@@ -187,13 +187,13 @@ namespace WebAvanzada3Cuatrimestre.test
         {
             // Arrange
             using var cts = new CancellationTokenSource();
-            _repositorioMock.Setup(r => r.CreateDuennoAsync(It.IsAny<Duenno>(), cts.Token)).ReturnsAsync(true);
+            _repositorioMock.Setup(r => r.CreateAsync(It.IsAny<Duenno>(), cts.Token)).ReturnsAsync(true);
 
             // Act
             await _servicio.CrearDuennoAsync(CrearDuennoDto(), cts.Token);
 
             // Assert
-            _repositorioMock.Verify(r => r.CreateDuennoAsync(It.IsAny<Duenno>(), cts.Token), Times.Once);
+            _repositorioMock.Verify(r => r.CreateAsync(It.IsAny<Duenno>(), cts.Token), Times.Once);
         }
 
         // ---------- ActualizarDuennoAsync ----------
@@ -202,7 +202,7 @@ namespace WebAvanzada3Cuatrimestre.test
         public async Task ActualizarDuenno_DatosValidos_RetornaCorrecto()
         {
             // Arrange
-            _repositorioMock.Setup(r => r.UpdateDuennoAsync(It.IsAny<Duenno>(), It.IsAny<CancellationToken>())).ReturnsAsync(true);
+            _repositorioMock.Setup(r => r.UpdateAsync(It.IsAny<Duenno>(), It.IsAny<CancellationToken>())).ReturnsAsync(true);
 
             // Act
             var resultado = await _servicio.ActualizarDuennoAsync(CrearDuennoDto());
@@ -210,7 +210,7 @@ namespace WebAvanzada3Cuatrimestre.test
             // Assert
             Assert.True(resultado.EsCorrecto);
             Assert.Equal(1, resultado.Dato.Id);
-            _repositorioMock.Verify(r => r.UpdateDuennoAsync(
+            _repositorioMock.Verify(r => r.UpdateAsync(
                 It.Is<Duenno>(d => d.Id == 1 && d.Apellido2 == "Mora"),
                 It.IsAny<CancellationToken>()), Times.Once);
         }
@@ -224,14 +224,14 @@ namespace WebAvanzada3Cuatrimestre.test
             // Assert
             Assert.False(resultado.EsCorrecto);
             Assert.Equal(400, resultado.Codigo);
-            _repositorioMock.Verify(r => r.UpdateDuennoAsync(It.IsAny<Duenno>(), It.IsAny<CancellationToken>()), Times.Never);
+            _repositorioMock.Verify(r => r.UpdateAsync(It.IsAny<Duenno>(), It.IsAny<CancellationToken>()), Times.Never);
         }
 
         [Fact]
         public async Task ActualizarDuenno_RepositorioFalla_RetornaError500()
         {
             // Arrange
-            _repositorioMock.Setup(r => r.UpdateDuennoAsync(It.IsAny<Duenno>(), It.IsAny<CancellationToken>())).ReturnsAsync(false);
+            _repositorioMock.Setup(r => r.UpdateAsync(It.IsAny<Duenno>(), It.IsAny<CancellationToken>())).ReturnsAsync(false);
 
             // Act
             var resultado = await _servicio.ActualizarDuennoAsync(CrearDuennoDto());
@@ -248,7 +248,7 @@ namespace WebAvanzada3Cuatrimestre.test
         public async Task EliminarDuenno_Existe_RetornaCorrecto()
         {
             // Arrange
-            _repositorioMock.Setup(r => r.DeleteDuennoAsync(3, It.IsAny<CancellationToken>())).ReturnsAsync(true);
+            _repositorioMock.Setup(r => r.DeleteAsync(3, It.IsAny<CancellationToken>())).ReturnsAsync(true);
 
             // Act
             var resultado = await _servicio.EliminarDuennoAsync(3);
@@ -262,7 +262,7 @@ namespace WebAvanzada3Cuatrimestre.test
         public async Task EliminarDuenno_RepositorioFalla_RetornaError500()
         {
             // Arrange
-            _repositorioMock.Setup(r => r.DeleteDuennoAsync(3, It.IsAny<CancellationToken>())).ReturnsAsync(false);
+            _repositorioMock.Setup(r => r.DeleteAsync(3, It.IsAny<CancellationToken>())).ReturnsAsync(false);
 
             // Act
             var resultado = await _servicio.EliminarDuennoAsync(3);

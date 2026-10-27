@@ -19,13 +19,13 @@ namespace WebAvanzada3Cuatrimestre.Application.Services
 
         public async Task<List<DuennoDto>> ObtenerDuennosAsync(CancellationToken cancellationToken = default)
         {
-            var duennos = await _duennoRepository.GetAllDuennosAsync(cancellationToken);
+            var duennos = await _duennoRepository.GetAllAsync(cancellationToken);
             return _mapper.Map<List<DuennoDto>>(duennos);
         }
 
         public async Task<DuennoDto?> ObtenerDuennoPorIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            var duenno = await _duennoRepository.GetDuennoByIdAsync(id, cancellationToken);
+            var duenno = await _duennoRepository.GetByIdAsync(id, cancellationToken);
             return _mapper.Map<DuennoDto>(duenno);
         }
 
@@ -42,7 +42,7 @@ namespace WebAvanzada3Cuatrimestre.Application.Services
                 return respuesta;
             }
 
-            if (!await _duennoRepository.CreateDuennoAsync(duennoEntity, cancellationToken))
+            if (!await _duennoRepository.CreateAsync(duennoEntity, cancellationToken))
             {
                 respuesta.EsCorrecto = false;
                 respuesta.Mensaje = "No se pudo crear el dueño.";
@@ -67,7 +67,7 @@ namespace WebAvanzada3Cuatrimestre.Application.Services
                 return respuesta;
             }
 
-            if (!await _duennoRepository.UpdateDuennoAsync(duennoEntity, cancellationToken))
+            if (!await _duennoRepository.UpdateAsync(duennoEntity, cancellationToken))
             {
                 respuesta.EsCorrecto = false;
                 respuesta.Mensaje = "No se pudo actualizar el dueño.";
@@ -83,7 +83,7 @@ namespace WebAvanzada3Cuatrimestre.Application.Services
         {
             var respuesta = new Respuesta<DuennoDto>();
 
-            if (!await _duennoRepository.DeleteDuennoAsync(id, cancellationToken))
+            if (!await _duennoRepository.DeleteAsync(id, cancellationToken))
             {
                 respuesta.EsCorrecto = false;
                 respuesta.Mensaje = "No se pudo eliminar el dueño.";

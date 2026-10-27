@@ -39,7 +39,7 @@ namespace WebAvanzada3Cuatrimestre.test
                     FkduennoNavigation = new Duenno { Id = 5, Nombre = "Juan", Apellido1 = "Perez", Apellido2 = "Mora", Edad = 30 }
                 }
             };
-            _repositorioMock.Setup(r => r.GetAllCarrosAsync(It.IsAny<CancellationToken>())).ReturnsAsync(carros);
+            _repositorioMock.Setup(r => r.GetAllAsync(It.IsAny<CancellationToken>())).ReturnsAsync(carros);
 
             // Act
             var resultado = await _servicio.ObtenerCarrosAsync();
@@ -56,7 +56,7 @@ namespace WebAvanzada3Cuatrimestre.test
         public async Task ObtenerCarros_SinRegistros_RetornaListaVacia()
         {
             // Arrange
-            _repositorioMock.Setup(r => r.GetAllCarrosAsync(It.IsAny<CancellationToken>())).ReturnsAsync(new List<Carro>());
+            _repositorioMock.Setup(r => r.GetAllAsync(It.IsAny<CancellationToken>())).ReturnsAsync(new List<Carro>());
 
             // Act
             var resultado = await _servicio.ObtenerCarrosAsync();
@@ -72,7 +72,7 @@ namespace WebAvanzada3Cuatrimestre.test
         {
             // Arrange
             var carro = new Carro { Id = 4, Placa = "XYZ-999", Marca = "Ferrari", Fkduenno = 2 };
-            _repositorioMock.Setup(r => r.GetCarroByIdAsync(4, It.IsAny<CancellationToken>())).ReturnsAsync(carro);
+            _repositorioMock.Setup(r => r.GetByIdAsync(4, It.IsAny<CancellationToken>())).ReturnsAsync(carro);
 
             // Act
             var resultado = await _servicio.ObtenerCarroPorIdAsync(4);
@@ -88,7 +88,7 @@ namespace WebAvanzada3Cuatrimestre.test
         public async Task ObtenerCarroPorId_NoExiste_RetornaNull()
         {
             // Arrange
-            _repositorioMock.Setup(r => r.GetCarroByIdAsync(99, It.IsAny<CancellationToken>())).ReturnsAsync((Carro)null!);
+            _repositorioMock.Setup(r => r.GetByIdAsync(99, It.IsAny<CancellationToken>())).ReturnsAsync((Carro)null!);
 
             // Act
             var resultado = await _servicio.ObtenerCarroPorIdAsync(99);
@@ -103,7 +103,7 @@ namespace WebAvanzada3Cuatrimestre.test
         public async Task CrearCarro_MarcaFerrari_LlamaRepositorioYRetornaCorrecto()
         {
             // Arrange
-            _repositorioMock.Setup(r => r.CreateCarroAsync(It.IsAny<Carro>(), It.IsAny<CancellationToken>())).ReturnsAsync(true);
+            _repositorioMock.Setup(r => r.CreateAsync(It.IsAny<Carro>(), It.IsAny<CancellationToken>())).ReturnsAsync(true);
 
             // Act
             var resultado = await _servicio.CrearCarroAsync(CrearCarroDto());
@@ -112,7 +112,7 @@ namespace WebAvanzada3Cuatrimestre.test
             Assert.True(resultado.EsCorrecto);
             Assert.Equal(200, resultado.Codigo);
             Assert.Equal("ABC-123", resultado.Dato.Placa);
-            _repositorioMock.Verify(r => r.CreateCarroAsync(
+            _repositorioMock.Verify(r => r.CreateAsync(
                 It.Is<Carro>(c => c.Placa == "ABC-123" && c.Marca == "Ferrari" && c.Fkduenno == 5),
                 It.IsAny<CancellationToken>()), Times.Once);
         }
@@ -127,14 +127,14 @@ namespace WebAvanzada3Cuatrimestre.test
             Assert.False(resultado.EsCorrecto);
             Assert.Equal(400, resultado.Codigo);
             Assert.Equal("Solo se permiten carros de la marca Ferrari.", resultado.Mensaje);
-            _repositorioMock.Verify(r => r.CreateCarroAsync(It.IsAny<Carro>(), It.IsAny<CancellationToken>()), Times.Never);
+            _repositorioMock.Verify(r => r.CreateAsync(It.IsAny<Carro>(), It.IsAny<CancellationToken>()), Times.Never);
         }
 
         [Fact]
         public async Task CrearCarro_RepositorioFalla_RetornaError500()
         {
             // Arrange
-            _repositorioMock.Setup(r => r.CreateCarroAsync(It.IsAny<Carro>(), It.IsAny<CancellationToken>())).ReturnsAsync(false);
+            _repositorioMock.Setup(r => r.CreateAsync(It.IsAny<Carro>(), It.IsAny<CancellationToken>())).ReturnsAsync(false);
 
             // Act
             var resultado = await _servicio.CrearCarroAsync(CrearCarroDto());
@@ -151,7 +151,7 @@ namespace WebAvanzada3Cuatrimestre.test
         public async Task ActualizarCarro_MarcaFerrari_RetornaCorrecto()
         {
             // Arrange
-            _repositorioMock.Setup(r => r.UpdateCarroAsync(It.IsAny<Carro>(), It.IsAny<CancellationToken>())).ReturnsAsync(true);
+            _repositorioMock.Setup(r => r.UpdateAsync(It.IsAny<Carro>(), It.IsAny<CancellationToken>())).ReturnsAsync(true);
 
             // Act
             var resultado = await _servicio.ActualizarCarroAsync(CrearCarroDto());
@@ -159,7 +159,7 @@ namespace WebAvanzada3Cuatrimestre.test
             // Assert
             Assert.True(resultado.EsCorrecto);
             Assert.Equal(1, resultado.Dato.Id);
-            _repositorioMock.Verify(r => r.UpdateCarroAsync(It.Is<Carro>(c => c.Id == 1), It.IsAny<CancellationToken>()), Times.Once);
+            _repositorioMock.Verify(r => r.UpdateAsync(It.Is<Carro>(c => c.Id == 1), It.IsAny<CancellationToken>()), Times.Once);
         }
 
         [Fact]
@@ -171,14 +171,14 @@ namespace WebAvanzada3Cuatrimestre.test
             // Assert
             Assert.False(resultado.EsCorrecto);
             Assert.Equal(400, resultado.Codigo);
-            _repositorioMock.Verify(r => r.UpdateCarroAsync(It.IsAny<Carro>(), It.IsAny<CancellationToken>()), Times.Never);
+            _repositorioMock.Verify(r => r.UpdateAsync(It.IsAny<Carro>(), It.IsAny<CancellationToken>()), Times.Never);
         }
 
         [Fact]
         public async Task ActualizarCarro_RepositorioFalla_RetornaError500()
         {
             // Arrange
-            _repositorioMock.Setup(r => r.UpdateCarroAsync(It.IsAny<Carro>(), It.IsAny<CancellationToken>())).ReturnsAsync(false);
+            _repositorioMock.Setup(r => r.UpdateAsync(It.IsAny<Carro>(), It.IsAny<CancellationToken>())).ReturnsAsync(false);
 
             // Act
             var resultado = await _servicio.ActualizarCarroAsync(CrearCarroDto());
@@ -195,7 +195,7 @@ namespace WebAvanzada3Cuatrimestre.test
         public async Task EliminarCarro_Existe_RetornaCorrecto()
         {
             // Arrange
-            _repositorioMock.Setup(r => r.DeleteCarroAsync(3, It.IsAny<CancellationToken>())).ReturnsAsync(true);
+            _repositorioMock.Setup(r => r.DeleteAsync(3, It.IsAny<CancellationToken>())).ReturnsAsync(true);
 
             // Act
             var resultado = await _servicio.EliminarCarroAsync(3);
@@ -209,7 +209,7 @@ namespace WebAvanzada3Cuatrimestre.test
         public async Task EliminarCarro_RepositorioFalla_RetornaError500()
         {
             // Arrange
-            _repositorioMock.Setup(r => r.DeleteCarroAsync(3, It.IsAny<CancellationToken>())).ReturnsAsync(false);
+            _repositorioMock.Setup(r => r.DeleteAsync(3, It.IsAny<CancellationToken>())).ReturnsAsync(false);
 
             // Act
             var resultado = await _servicio.EliminarCarroAsync(3);

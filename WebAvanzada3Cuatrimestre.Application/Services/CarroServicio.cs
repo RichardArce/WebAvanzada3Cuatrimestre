@@ -27,7 +27,7 @@ namespace WebAvanzada3Cuatrimestre.Application.Services
         public async Task<List<CarroDto>> ObtenerCarrosAsync(CancellationToken cancellationToken = default)
         {
 
-            var carros = await _carroRepository.GetAllCarrosAsync(cancellationToken);
+            var carros = await _carroRepository.GetAllAsync(cancellationToken);
             var carrosDto = _mapper.Map<List<CarroDto>>(carros);
 
             return carrosDto;
@@ -35,7 +35,7 @@ namespace WebAvanzada3Cuatrimestre.Application.Services
 
         public async Task<CarroDto?> ObtenerCarroPorIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            var carro = await _carroRepository.GetCarroByIdAsync(id, cancellationToken);
+            var carro = await _carroRepository.GetByIdAsync(id, cancellationToken);
             
             var carroDto = _mapper.Map<CarroDto>(carro);
 
@@ -59,7 +59,7 @@ namespace WebAvanzada3Cuatrimestre.Application.Services
             }
 
             // Valida el proceso de creación del carro, si no se pudo crear, lanza una excepción
-            if (!await _carroRepository.CreateCarroAsync(carroEntity, cancellationToken))
+            if (!await _carroRepository.CreateAsync(carroEntity, cancellationToken))
             {
                 respuesta.EsCorrecto = false;
                 respuesta.Mensaje = "No se pudo crear el carro.";
@@ -86,7 +86,7 @@ namespace WebAvanzada3Cuatrimestre.Application.Services
                 return respuesta;
             }
 
-            if (!await _carroRepository.UpdateCarroAsync(carroEntity, cancellationToken))
+            if (!await _carroRepository.UpdateAsync(carroEntity, cancellationToken))
             {
                 respuesta.EsCorrecto = false;
                 respuesta.Mensaje = "No se pudo actualizar el carro.";
@@ -102,7 +102,7 @@ namespace WebAvanzada3Cuatrimestre.Application.Services
         {
             var respuesta = new Respuesta<CarroDto>();
 
-            if (!await _carroRepository.DeleteCarroAsync(id, cancellationToken))
+            if (!await _carroRepository.DeleteAsync(id, cancellationToken))
             {
                 respuesta.EsCorrecto = false;
                 respuesta.Mensaje = "No se pudo eliminar el carro.";
