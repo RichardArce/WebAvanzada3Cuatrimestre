@@ -1,0 +1,54 @@
+@{
+    ViewData["Title"] = "Dueños";
+}
+
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/carro.css" asp-append-version="true" />
+
+
+<div class="duenno-page">
+
+    <div class="page-header">
+        <div class="page-header-content">
+            <div>
+                <h1 class="page-title">
+                    <i class="bi bi-people-fill"></i> Dueños
+                </h1>
+                <p class="page-subtitle">Gestión de los propietarios de vehículos</p>
+            </div>
+            <button type="button" class="btn btn-crear" data-bs-toggle="modal" data-bs-target="#modalCrearDuenno">
+                <i class="bi bi-plus-lg"></i> Nuevo Dueño
+            </button>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <div class="table-card-header">
+            <h2 class="table-card-title">
+                <i class="bi bi-list-ul"></i> Lista de Dueños
+            </h2>
+        </div>
+        <div class="table-responsive">
+            <table id="tblDuenno" class="table table-duenno" style="width:100%">
+                <thead>
+                    <tr>
+                        <th style="width:6%"><div class="th-content"><i class="bi bi-hash"></i> Id</div></th>
+                        <th><div class="th-content"><i class="bi bi-person"></i> Nombre</div></th>
+                        <th><div class="th-content"><i class="bi bi-person-vcard"></i> Primer apellido</div></th>
+                        <th><div class="th-content"><i class="bi bi-person-vcard"></i> Segundo apellido</div></th>
+                        <th style="width:10%"><div class="th-content"><i class="bi bi-calendar3"></i> Edad</div></th>
+                        <th style="width:14%"><div class="th-content"><i class="bi bi-gear"></i> Acciones</div></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    @await Html.PartialAsync("_Create", new WebAvanzada3Cuatrimestre.Application.Dtos.DuennoDto())
+    @await Html.PartialAsync("_Edit", new WebAvanzada3Cuatrimestre.Application.Dtos.DuennoDto())
+</div>
+
+@section Scripts {
+    <script src="~/js/duenno.js" asp-append-version="true"></script>
+}

@@ -2,6 +2,9 @@
   <Folder Name="/.github/">
     <File Path="instruccions.md" />
   </Folder>
+  <Folder Name="/Pruebas/">
+    <Project Path="WebAvanzada3Cuatrimestre.test/WebAvanzada3Cuatrimestre.test.csproj" Id="31673737-678b-443f-99f3-934acc5372a5" />
+  </Folder>
   <Project Path="WebAvanzada3Cuatrimestre.Application/WebAvanzada3Cuatrimestre.Application.csproj" />
   <Project Path="WebAvanzada3Cuatrimestre.Domain/WebAvanzada3Cuatrimestre.Domain.csproj" />
   <Project Path="WebAvanzada3Cuatrimestre.Infrastructure/WebAvanzada3Cuatrimestre.Infrastructure.csproj" />

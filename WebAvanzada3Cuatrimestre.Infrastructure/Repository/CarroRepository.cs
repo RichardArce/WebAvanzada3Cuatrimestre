@@ -50,9 +50,8 @@ namespace WebAvanzada3Cuatrimestre.Infrastructure.Repository
 
         public async Task<bool> CreateCarroAsync(Carro carro, CancellationToken cancellationToken = default)
         {
-            _context.Carros.Add(carro);
-            return await _context.SaveChangesAsync(cancellationToken) > 0;
-            
+            throw new NotImplementedException();
+
         }
 
         public async Task<bool> UpdateCarroAsync(Carro carro, CancellationToken cancellationToken = default)

@@ -1,0 +1,60 @@
+@model WebAvanzada3Cuatrimestre.Application.Dtos.DuennoDto
+
+<div class="modal fade" id="modalEditarDuenno" tabindex="-1" aria-labelledby="modalEditarDuennoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered vehicle-modal-dialog">
+        <div class="modal-content vehicle-modal">
+            <form id="formEditarDuenno" asp-controller="Duenno" asp-action="ActualizarDuenno" method="post">
+                <div class="modal-header vehicle-modal-header">
+                    <div class="vehicle-modal-heading">
+                        <span class="vehicle-modal-icon"><i class="bi bi-pencil-square"></i></span>
+                        <div>
+                            <span class="vehicle-modal-eyebrow">ACTUALIZAR REGISTRO</span>
+                            <h5 class="modal-title" id="modalEditarDuennoLabel">Editar dueño</h5>
+                            <p class="vehicle-modal-subtitle">Revisa y actualiza la información del propietario.</p>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body vehicle-modal-body">
+                    <input asp-for="Id" type="hidden" />
+                    <div class="vehicle-field mb-3">
+                        <label asp-for="Nombre" class="form-label">Nombre</label>
+                        <div class="vehicle-control">
+                            <i class="bi bi-person" aria-hidden="true"></i>
+                            <input asp-for="Nombre" class="form-control" placeholder="Ej. María" autocomplete="off" required />
+                        </div>
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                    <div class="vehicle-field mb-3">
+                        <label asp-for="Apellido1" class="form-label">Primer apellido</label>
+                        <div class="vehicle-control">
+                            <i class="bi bi-person-vcard" aria-hidden="true"></i>
+                            <input asp-for="Apellido1" class="form-control" placeholder="Ej. Rodríguez" autocomplete="off" required />
+                        </div>
+                        <span asp-validation-for="Apellido1" class="text-danger"></span>
+                    </div>
+                    <div class="vehicle-field mb-3">
+                        <label asp-for="Apellido2" class="form-label">Segundo apellido</label>
+                        <div class="vehicle-control">
+                            <i class="bi bi-person-vcard" aria-hidden="true"></i>
+                            <input asp-for="Apellido2" class="form-control" placeholder="Ej. Mora" autocomplete="off" required />
+                        </div>
+                        <span asp-validation-for="Apellido2" class="text-danger"></span>
+                    </div>
+                    <div class="vehicle-field mb-3">
+                        <label asp-for="Edad" class="form-label">Edad</label>
+                        <div class="vehicle-control">
+                            <i class="bi bi-calendar3" aria-hidden="true"></i>
+                            <input asp-for="Edad" type="number" min="0" step="1" class="form-control" placeholder="Ej. 30" required />
+                        </div>
+                        <span asp-validation-for="Edad" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="modal-footer vehicle-modal-footer">
+                    <button type="button" class="btn btn-modal-cancel" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-modal-primary" id="btnEditarDuenno"><i class="bi bi-check2"></i> Guardar cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

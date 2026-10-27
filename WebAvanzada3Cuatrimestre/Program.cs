@@ -3,6 +3,7 @@ using WebAvanzada3Cuatrimestre.Application.Mapping;
 using WebAvanzada3Cuatrimestre.Application.Services;
 using WebAvanzada3Cuatrimestre.Infrastructure.Data;
 using WebAvanzada3Cuatrimestre.Infrastructure.Repository;
+using WebAvanzada3Cuatrimestre.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,9 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseMiddleware<MiddlewareGlobalExceptionHandler>();
+
 app.UseHttpsRedirection();
 app.UseRouting();
 
