@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using WebAvanzada3Cuatrimestre.Domain;
 
 namespace WebAvanzada3Cuatrimestre.Application.Dtos
 {

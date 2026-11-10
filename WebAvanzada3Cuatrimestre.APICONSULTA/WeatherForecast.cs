@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace WebAvanzada3Cuatrimestre.APICONSULTA
 {
     public class WeatherForecast
@@ -9,5 +11,21 @@ namespace WebAvanzada3Cuatrimestre.APICONSULTA
         public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 
         public string? Summary { get; set; }
+    }
+
+    public class VehiculoRegistroCivil
+    {
+        public string Placa { get; set; } = null!;
+        public string NombreDueno { get; set; }
+    }
+
+
+    public class RespuestaVehiculo {
+        public int statusCode { get; set; }
+        
+        public string Message { get; set; }
+
+        public object Data { get; set; }
+
     }
 }

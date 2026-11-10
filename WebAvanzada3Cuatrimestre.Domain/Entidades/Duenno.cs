@@ -19,7 +19,10 @@ public partial class Duenno
 
     public virtual ICollection<Carro> Carros { get; set; } = new List<Carro>();
 
-
+    public string NombreCompleto()
+    {
+        return Nombre + " " + Apellido1 + " " + Apellido2;
+    }
     public bool ValidarReglaNegocioMayorEdad()
     {
         if (Edad > 18)

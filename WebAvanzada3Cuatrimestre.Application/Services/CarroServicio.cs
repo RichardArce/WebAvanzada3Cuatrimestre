@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using WebAvanzada3Cuatrimestre.Application.Dtos;
+using WebAvanzada3Cuatrimestre.Infrastructure.ApiVehiculo;
 using WebAvanzada3Cuatrimestre.Infrastructure.Repository;
 
 namespace WebAvanzada3Cuatrimestre.Application.Services
@@ -14,13 +15,15 @@ namespace WebAvanzada3Cuatrimestre.Application.Services
     {
         //Inyeccion de dependencias
         private readonly ICarroRepository _carroRepository;
+        private readonly IDuennoRepository _duennoRepository;
         private readonly AutoMapper.IMapper _mapper;
 
 
-        public CarroServicio(ICarroRepository carroRepository, AutoMapper.IMapper mapper)
+        public CarroServicio(ICarroRepository carroRepository, AutoMapper.IMapper mapper, IDuennoRepository duennoRepository)
         {
             _carroRepository = carroRepository;
             _mapper = mapper;
+            _duennoRepository = duennoRepository;
         }
 
 
@@ -46,8 +49,32 @@ namespace WebAvanzada3Cuatrimestre.Application.Services
         {
             var respuesta = new Respuesta<CarroDto>();
 
+            var duenno = await _duennoRepository.GetByIdAsync(carro.Fkduenno,cancellationToken);
+
             
+            //------------------Validar API
+            using var client = new HttpClient();
+
+            var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:7065/api/VerificarVehiculo?cliente=" + duenno.NombreCompleto() + "&placa=" + carro.Placa);
+
+            using var response = await client.SendAsync(request);
+
+            var responseContent = await response.Content.ReadAsStringAsync();   
+
+            var responseObject = System.Text.Json.JsonSerializer.Deserialize<VerificarVehiculoResult>(responseContent); //Estructura donde se deserializa la respuesta de la API
+
+            if (responseObject.data.ToString() == "False") 
+            {
+                respuesta.EsCorrecto = false;
+                respuesta.Mensaje = "EL carro no le pertenece al dueno ingresado";
+                respuesta.Codigo = 400; // Código de error (puedes ajustarlo según tus necesidades)
+                return respuesta;
+
+            }
+            //------------------
+
             var carroEntity = _mapper.Map<Domain.Carro>(carro);
+
 
             // Validar la regla de negocio antes de crear el carro
             if (!carroEntity.ValidarReglaNegocioSoloFerrari()) // Si hay muchas reglas encapsular en un solo metodo ValidarReglasDeNegocio() y retornar un objeto con el resultado de la validación

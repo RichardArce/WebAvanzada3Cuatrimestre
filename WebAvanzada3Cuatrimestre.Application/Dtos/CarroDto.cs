@@ -13,10 +13,10 @@ namespace WebAvanzada3Cuatrimestre.Application.Dtos
         public string Marca { get; set; } = null!;
 
         //Pruebas
-        public int? Fkduenno { get; set; }
+        public int Fkduenno { get; set; }
 
         public DuennoDto? Duenno { get; set; } //Objecto
 
-        //El duenno
+
     }
 }

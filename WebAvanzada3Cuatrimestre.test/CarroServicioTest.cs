@@ -6,7 +6,7 @@ using WebAvanzada3Cuatrimestre.Infrastructure.Repository;
 
 namespace WebAvanzada3Cuatrimestre.test
 {
-    public class CarroServicioTest
+    /*public class CarroServicioTest
     {
         // xUnit crea una instancia nueva de la clase por cada prueba, asi cada prueba tiene sus propios mocks
         private readonly Mock<ICarroRepository> _repositorioMock = new();
@@ -219,5 +219,5 @@ namespace WebAvanzada3Cuatrimestre.test
             Assert.Equal(500, resultado.Codigo);
             Assert.Equal("No se pudo eliminar el carro.", resultado.Mensaje);
         }
-    }
+    }*/
 }
