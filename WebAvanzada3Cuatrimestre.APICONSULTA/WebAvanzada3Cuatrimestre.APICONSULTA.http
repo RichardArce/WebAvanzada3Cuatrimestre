@@ -1,0 +1,6 @@
+@WebAvanzada3Cuatrimestre.APICONSULTA_HostAddress = http://localhost:5077
+
+GET {{WebAvanzada3Cuatrimestre.APICONSULTA_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
