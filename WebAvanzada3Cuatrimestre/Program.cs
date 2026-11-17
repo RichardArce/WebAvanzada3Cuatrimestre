@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebAvanzada3Cuatrimestre.Application.Mapping;
 using WebAvanzada3Cuatrimestre.Application.Services;
+using WebAvanzada3Cuatrimestre.Infrastructure.ApiVehiculo;
 using WebAvanzada3Cuatrimestre.Infrastructure.Data;
 using WebAvanzada3Cuatrimestre.Infrastructure.Repository;
 using WebAvanzada3Cuatrimestre.Middleware;
@@ -17,6 +18,20 @@ builder.Services.AddScoped<ICarroRepository, CarroRepository>();
 builder.Services.AddScoped<IDuennoRepository, DuennoRepository>();
 builder.Services.AddScoped<ICarroServicio, CarroServicio>();
 builder.Services.AddScoped<IDuennoServicio, DuennoServicio>();
+
+
+builder.Services.AddHttpClient<IVerificarVehiculoAPI, VerificarVehiculoAPI>(client => {
+    
+    var baseUrl = builder.Configuration["ApiVehiculo:BaseUrl"]; // Obtén la URL base desde la configuración
+
+
+    client.BaseAddress = new Uri(baseUrl);
+    //client.Timeout = TimeSpan.FromSeconds(30); // Ajusta el tiempo de espera según tus necesidades
+    client.Timeout = TimeSpan.FromSeconds(builder.Configuration.GetValue("ApiVehiculo:Timeout", 30)); // Ajusta el tiempo de espera según tus necesidades
+
+
+}); 
+
 
 //ADD MAPPER
 builder.Services.AddAutoMapper(cfg => { }, typeof(MapeoClases));

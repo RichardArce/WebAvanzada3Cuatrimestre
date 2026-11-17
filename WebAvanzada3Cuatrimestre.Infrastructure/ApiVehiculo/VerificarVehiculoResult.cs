@@ -10,6 +10,6 @@ namespace WebAvanzada3Cuatrimestre.Infrastructure.ApiVehiculo
 
         public string message { get; set; }
 
-        public object data { get; set; }
+        public bool data { get; set; }
     }
 }
