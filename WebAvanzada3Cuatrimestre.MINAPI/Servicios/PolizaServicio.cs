@@ -25,57 +25,49 @@ public sealed class PolizaServicio : IPolizaServicio
 
     public bool ExistePlaca(string placa)
     {
-
-            return _propietarios.Any(propietario =>
-                string.Equals(propietario.Placa, placa, StringComparison.OrdinalIgnoreCase));
-        
+        return _propietarios.Any(propietario =>
+            string.Equals(propietario.Placa, placa, StringComparison.OrdinalIgnoreCase));
     }
 
     public bool ExisteNumeroPoliza(string numeroPoliza)
     {
-
-            return _polizas.Any(poliza =>
-                string.Equals(poliza.numeroPoliza, numeroPoliza, StringComparison.OrdinalIgnoreCase));
-        
+        return _polizas.Any(poliza =>
+            string.Equals(poliza.numeroPoliza, numeroPoliza, StringComparison.OrdinalIgnoreCase));
     }
 
-    public bool Agregar(Poliza poliza)
+    public ResultadoCrearPoliza Crear(Poliza poliza, string placa)
     {
+        if (!ExistePlaca(placa))
+        {
+            return ResultadoCrearPoliza.PlacaNoExiste;
+        }
 
-            if (!_propietarios.Any(propietario =>
-                    string.Equals(propietario.Placa, poliza.placa, StringComparison.OrdinalIgnoreCase)) ||
-                poliza.FechaVencimiento.Date < poliza.FechaContratacion.Date)
-            {
-                return false;
-            }
+        if (poliza.FechaVencimiento.Date < poliza.FechaContratacion.Date)
+        {
+            return ResultadoCrearPoliza.FechasInvalidas;
+        }
 
-            if (_polizas.Any(polizaExistente =>
-                string.Equals(polizaExistente.numeroPoliza, poliza.numeroPoliza, StringComparison.OrdinalIgnoreCase)))
-            {
-                return false;
-            }
+        if (_polizas.Any(polizaExistente =>
+            string.Equals(polizaExistente.numeroPoliza, poliza.numeroPoliza, StringComparison.OrdinalIgnoreCase)))
+        {
+            return ResultadoCrearPoliza.NumeroDuplicado;
+        }
 
-            _polizas.Add(poliza);
-            return true;
-        
+        poliza.placa = placa;
+        _polizas.Add(poliza);
+        return ResultadoCrearPoliza.Creada;
     }
 
     public IReadOnlyList<Poliza> ObtenerPorPlaca(string placa)
     {
-
-        
-            return _polizas
-                .Where(poliza => string.Equals(poliza.placa, placa, StringComparison.OrdinalIgnoreCase))
-                .ToList();
-        
+        return _polizas
+            .Where(poliza => string.Equals(poliza.placa, placa, StringComparison.OrdinalIgnoreCase))
+            .ToList();
     }
 
     public Poliza? ObtenerPorNumero(string numeroPoliza)
     {
-
-        
-            return _polizas.FirstOrDefault(poliza =>
-                string.Equals(poliza.numeroPoliza, numeroPoliza, StringComparison.OrdinalIgnoreCase));
-        
+        return _polizas.FirstOrDefault(poliza =>
+            string.Equals(poliza.numeroPoliza, numeroPoliza, StringComparison.OrdinalIgnoreCase));
     }
 }

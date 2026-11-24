@@ -2,11 +2,11 @@
 {
     public class Poliza
     {
-        public string placa { get; set; }
+        public string placa { get; set; } = string.Empty;
 
-        public string codigoPoliza { get; set; } //Tipo de poliza
+        public string codigoPoliza { get; set; } = string.Empty; //Tipo de poliza
 
-        public string numeroPoliza { get; set; } //Identicador unico de la poliza
+        public string numeroPoliza { get; set; } = string.Empty; //Identicador unico de la poliza
 
         public DateTime FechaContratacion { get; set; } //Fecha de contratacion de la poliza
 

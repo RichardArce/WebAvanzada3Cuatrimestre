@@ -8,7 +8,7 @@ public interface IPolizaServicio
 
     bool ExisteNumeroPoliza(string numeroPoliza);
 
-    bool Agregar(Poliza poliza);
+    ResultadoCrearPoliza Crear(Poliza poliza, string placa);
 
     IReadOnlyList<Poliza> ObtenerPorPlaca(string placa);
 

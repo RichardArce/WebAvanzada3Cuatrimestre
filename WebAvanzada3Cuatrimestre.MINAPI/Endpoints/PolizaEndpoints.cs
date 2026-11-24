@@ -7,22 +7,33 @@ public static class PolizaEndpoints
 {
     public static IEndpointRouteBuilder MapPolizaEndpoints(this IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapPost("/api/polizas/{placa}", CrearPoliza) // al final de la ruta se puede poner el parametro que se va a recibir, en este caso la placa
+        endpoints.MapPost("/api/polizas/{placa}", CrearPoliza)
             .WithName("CrearPoliza")
-            .WithSummary("Crea una póliza para un carro cuyo propietario está registrado");
+            .WithSummary("Crea una póliza para un carro cuyo propietario está registrado")
+            .WithTags("Pólizas")
+            .Produces<Poliza>(StatusCodes.Status201Created)
+            .ProducesValidationProblem(StatusCodes.Status400BadRequest)
+            .Produces<string>(StatusCodes.Status404NotFound)
+            .Produces<string>(StatusCodes.Status409Conflict);
 
         endpoints.MapGet("/api/carros/{placa}/polizas", ObtenerPolizasPorPlaca)
             .WithName("ObtenerPolizasPorPlaca")
-            .WithSummary("Obtiene las pólizas asociadas a una placa");
+            .WithSummary("Obtiene las pólizas asociadas a una placa")
+            .WithTags("Pólizas")
+            .Produces<IReadOnlyList<Poliza>>(StatusCodes.Status200OK)
+            .Produces<string>(StatusCodes.Status404NotFound);
 
         endpoints.MapGet("/api/polizas/{numeroPoliza}/vencimiento", VerificarVencimiento)
             .WithName("VerificarVencimientoPoliza")
-            .WithSummary("Verifica si una póliza está vencida");
+            .WithSummary("Verifica si una póliza está vencida")
+            .WithTags("Pólizas")
+            .Produces<bool>(StatusCodes.Status200OK)
+            .Produces<string>(StatusCodes.Status404NotFound);
 
         return endpoints;
     }
 
-    private static IResult CrearPoliza(
+    private static IResult CrearPoliza( //Esta mal por que esta extenso pero tampoco es algo del otro mundo.
         string placa,
         Poliza poliza,
         IPolizaServicio servicio)
@@ -37,12 +48,14 @@ public static class PolizaEndpoints
             });
         }
 
-        if (!servicio.ExistePlaca(placa))
+        var resultado = servicio.Crear(poliza, placa);
+
+        if (resultado == ResultadoCrearPoliza.PlacaNoExiste)
         {
             return Results.NotFound($"No existe un propietario registrado para la placa {placa}.");
         }
 
-        if (poliza.FechaVencimiento.Date < poliza.FechaContratacion.Date)
+        if (resultado == ResultadoCrearPoliza.FechasInvalidas)
         {
             return Results.ValidationProblem(new Dictionary<string, string[]>
             {
@@ -50,16 +63,9 @@ public static class PolizaEndpoints
             });
         }
 
-        if (servicio.ExisteNumeroPoliza(poliza.numeroPoliza))
+        if (resultado == ResultadoCrearPoliza.NumeroDuplicado)
         {
             return Results.Conflict($"Ya existe la póliza {poliza.numeroPoliza}.");
-        }
-
-        poliza.placa = placa;
-
-        if (!servicio.Agregar(poliza))
-        {
-            return Results.Conflict("No fue posible crear la póliza porque sus datos no son válidos o el número ya existe.");
         }
 
         return Results.Created($"/api/polizas/{poliza.numeroPoliza}/vencimiento", poliza);
@@ -79,7 +85,8 @@ public static class PolizaEndpoints
 
     private static IResult VerificarVencimiento(
         string numeroPoliza,
-        IPolizaServicio servicio)
+        IPolizaServicio servicio,
+        IReloj reloj)//por que una interfaz?
     {
         var poliza = servicio.ObtenerPorNumero(numeroPoliza);
 
@@ -89,8 +96,6 @@ public static class PolizaEndpoints
         }
 
         return Results.Ok(
-            poliza.FechaVencimiento.Date < DateTime.Now.Date);
+            poliza.FechaVencimiento.Date < reloj.Hoy);
     }
 }
-
-//Aunque no tengamos controladores, necesitamos una estructura o clase que me permite manejar las peticion
