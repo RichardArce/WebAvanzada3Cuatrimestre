@@ -1,0 +1,6 @@
+@WebAvanzada3Cuatrimestre.MINAPI_HostAddress = http://localhost:5116
+
+GET {{WebAvanzada3Cuatrimestre.MINAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -9,5 +9,6 @@
   <Project Path="WebAvanzada3Cuatrimestre.Application/WebAvanzada3Cuatrimestre.Application.csproj" />
   <Project Path="WebAvanzada3Cuatrimestre.Domain/WebAvanzada3Cuatrimestre.Domain.csproj" />
   <Project Path="WebAvanzada3Cuatrimestre.Infrastructure/WebAvanzada3Cuatrimestre.Infrastructure.csproj" />
+  <Project Path="WebAvanzada3Cuatrimestre.MINAPI/WebAvanzada3Cuatrimestre.MINAPI.csproj" Id="12894463-9ab3-41f9-a132-f0bc04d09019" />
   <Project Path="WebAvanzada3Cuatrimestre/WebAvanzada3Cuatrimestre.csproj" />
 </Solution>
